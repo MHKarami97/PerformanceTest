@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 
 namespace API.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        private const int SleepTimeInMillisecond = 30;
 
-        // GET api/values/5
-        public string Get(int id)
+        // GET api/values
+        public string Get()
         {
+            Thread.Sleep(SleepTimeInMillisecond);
+            
             return "value";
         }
 
         // POST api/values
-        public void Post([FromBody] string value)
+        public void Post()
         {
         }
 
