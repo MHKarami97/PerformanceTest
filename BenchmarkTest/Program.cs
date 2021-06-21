@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Diagnostics.Windows.Configs;
-using BenchmarkDotNet.Exporters.Csv;
+using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Mathematics;
 using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Running;
 using BenchmarkTest.ServiceReference1;
@@ -22,17 +19,31 @@ namespace BenchmarkTest
             var summary = BenchmarkRunner.Run<Test>();
         }
 
+        [DryJob]
+        //***
         [EtwProfiler]
         [MemoryDiagnoser]
         [TailCallDiagnoser]
-        [ThreadingDiagnoser]
-        [KeepBenchmarkFiles]
+        //[ThreadingDiagnoser]
         [NativeMemoryProfiler]
+        //[ConcurrencyVisualizerProfiler]
+        [KeepBenchmarkFiles]
+        //***
         [MinColumn, MaxColumn]
-        [ConcurrencyVisualizerProfiler]
-        [SimpleJob(RuntimeMoniker.Net50, baseline: true)]
+        //***
+        [JsonExporterAttribute.Brief]
+        [JsonExporterAttribute.Full]
+        [JsonExporterAttribute.FullCompressed]
+        [JsonExporterAttribute.BriefCompressed]
+        //***
+        [SimpleJob(targetCount: 100)]
+        [SimpleJob(RunStrategy.Monitoring)]
+        [SimpleJob(RuntimeMoniker.Net50)]
         [SimpleJob(RuntimeMoniker.Net461, baseline: true)]
+        //***
         [MarkdownExporter, HtmlExporter, CsvExporter, RPlotExporter]
+        //***
+        [RankColumn(NumeralSystem.Stars)]
         [Orderer(SummaryOrderPolicy.FastestToSlowest)]
         public class Test
         {
