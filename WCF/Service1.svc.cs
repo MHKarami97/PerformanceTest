@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Threading;
 
 namespace WCF
 {
@@ -12,22 +13,13 @@ namespace WCF
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-        public string GetData(int value)
+        private const int SleepTimeInMillisecond = 30;
+        
+        public string GetData()
         {
-            return string.Format("You entered: {0}", value);
-        }
-
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            Thread.Sleep(SleepTimeInMillisecond);
+            
+            return "data";
         }
     }
 }
