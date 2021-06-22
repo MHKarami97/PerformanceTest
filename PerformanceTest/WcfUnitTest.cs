@@ -15,7 +15,7 @@ namespace PerformanceTest
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void WcfMethod()
         {
             var data = _wcfClient.GetData();
         }
