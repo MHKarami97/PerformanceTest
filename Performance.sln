@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkTest", "BenchmarkT
 		{9CE8B89E-DF2A-41ED-A84A-61D628026C4B} = {9CE8B89E-DF2A-41ED-A84A-61D628026C4B}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRPcService", "GRPcService\GRPcService.csproj", "{2CF08D29-4F80-4111-A8B8-CEA6A166A155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{BDC39EF4-3B8B-4D35-8C44-3681AA37B882}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDC39EF4-3B8B-4D35-8C44-3681AA37B882}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDC39EF4-3B8B-4D35-8C44-3681AA37B882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF08D29-4F80-4111-A8B8-CEA6A166A155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF08D29-4F80-4111-A8B8-CEA6A166A155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF08D29-4F80-4111-A8B8-CEA6A166A155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF08D29-4F80-4111-A8B8-CEA6A166A155}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
