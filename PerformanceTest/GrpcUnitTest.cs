@@ -19,7 +19,7 @@ namespace PerformanceTest
         }
 
         [TestMethod]
-        public async Task WcfMethod()
+        public async Task GrpcMethod()
         {
             var response = await _calculator.MultiplyAsync(new MultiplyRequest
             {
