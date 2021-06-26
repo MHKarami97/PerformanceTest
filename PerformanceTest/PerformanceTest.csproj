@@ -37,6 +37,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Grpc.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad">
+      <HintPath>..\packages\Grpc.Core.2.36.1\lib\net45\Grpc.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Grpc.Core.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad">
+      <HintPath>..\packages\Grpc.Core.Api.2.36.1\lib\net45\Grpc.Core.Api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.LoadTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>False</Private>
     </Reference>
@@ -44,9 +57,48 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="mscorlib" />
+    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
+      <HintPath>..\packages\protobuf-net.2.4.6\lib\net40\protobuf-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net.Grpc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
+      <HintPath>..\packages\protobuf-net.Grpc.1.0.152\lib\net461\protobuf-net.Grpc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net.Grpc.Native, Version=1.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
+      <HintPath>..\packages\protobuf-net.Grpc.Native.1.0.152\lib\net461\protobuf-net.Grpc.Native.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Channels, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Threading.Channels.5.0.0\lib\net461\System.Threading.Channels.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="GrpcUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WcfUnitTest.cs" />
   </ItemGroup>
@@ -78,6 +131,7 @@
     <None Include="LoadTest-WCF.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="WebTest-API.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -103,6 +157,12 @@
   <ItemGroup>
     <None Include="Connected Services\ServiceReference1\Service11.disco" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GRPC\GRPC.csproj">
+      <Project>{b0db6e53-bd73-4b76-9b0f-2a45c432d4a5}</Project>
+      <Name>GRPC</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
@@ -123,6 +183,13 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Grpc.Core.2.36.1\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.2.36.1\build\net45\Grpc.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Grpc.Core.2.36.1\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.2.36.1\build\net45\Grpc.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
