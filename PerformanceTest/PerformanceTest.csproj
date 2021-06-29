@@ -118,11 +118,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\ServiceReference1\Service11.wsdl" />
-    <None Include="Connected Services\ServiceReference1\Service12.xsd">
+    <None Include="Connected Services\ServiceReference1\Service1.wsdl" />
+    <None Include="Connected Services\ServiceReference1\Service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceReference1\Service121.xsd">
+    <None Include="Connected Services\ServiceReference1\Service11.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="LoadTest-API.loadtest">
@@ -158,13 +158,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ServiceReference1\Service11.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GRPC\GRPC.csproj">
       <Project>{b0db6e53-bd73-4b76-9b0f-2a45c432d4a5}</Project>
       <Name>GRPC</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\Service1.disco" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
