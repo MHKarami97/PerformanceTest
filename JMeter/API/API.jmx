@@ -210,7 +210,7 @@ Here&apos;s the solution - Throughput Shaping Timer! Now you can just set schedu
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">D:\Other\Performance\JMeter\result.csv</stringProp>
+        <stringProp name="filename">D:\Other\Performance\JMeter\API\result.csv</stringProp>
         <boolProp name="useGroupName">true</boolProp>
         <stringProp name="TestPlan.comments">The summary report creates a table row for each differently named request in your test. This is similar to the Aggregate Report , except that it uses less memory</stringProp>
       </ResultCollector>
