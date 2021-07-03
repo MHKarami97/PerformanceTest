@@ -18,7 +18,7 @@ namespace GRPcService
                 {
                     Ports =
                     {
-                        new ServerPort("localhost", port, ServerCredentials.Insecure)
+                        new ServerPort("Krj-karami", port, ServerCredentials.Insecure)
                     }
                 };
 

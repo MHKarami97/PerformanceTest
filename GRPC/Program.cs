@@ -9,7 +9,7 @@ namespace GRPC
     {
         static async Task Main(string[] args)
         {
-            var channel = new Channel("localhost", 10042, ChannelCredentials.Insecure);
+            var channel = new Channel("Krj-karami", 10042, ChannelCredentials.Insecure);
             try
             {
                 var calculator = channel.CreateGrpcService<ICalculator>();
