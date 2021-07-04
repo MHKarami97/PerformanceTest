@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using ProtoBuf.Grpc.Server;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using GRPC;
 using ProtoBuf.Grpc.Reflection;
@@ -57,9 +58,14 @@ namespace GRPcService
 
     public class MyCalculator : ICalculator
     {
+        private const int SleepTimeInMillisecond = 30;
+
         ValueTask<MultiplyResult> ICalculator.MultiplyAsync(MultiplyRequest request)
         {
+            Thread.Sleep(SleepTimeInMillisecond);
+
             var result = new MultiplyResult {Result = request.X * request.Y};
+
             return new ValueTask<MultiplyResult>(result);
         }
     }
