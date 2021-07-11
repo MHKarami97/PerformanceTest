@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchmarkTest", "BenchmarkT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRPcService", "GRPcService\GRPcService.csproj", "{2CF08D29-4F80-4111-A8B8-CEA6A166A155}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{4148D095-8F86-4555-805A-AD5F72CC9DD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{2CF08D29-4F80-4111-A8B8-CEA6A166A155}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CF08D29-4F80-4111-A8B8-CEA6A166A155}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CF08D29-4F80-4111-A8B8-CEA6A166A155}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4148D095-8F86-4555-805A-AD5F72CC9DD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4148D095-8F86-4555-805A-AD5F72CC9DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4148D095-8F86-4555-805A-AD5F72CC9DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4148D095-8F86-4555-805A-AD5F72CC9DD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
