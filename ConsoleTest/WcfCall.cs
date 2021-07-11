@@ -34,9 +34,9 @@ namespace ConsoleTest
             return new WcfCall();
         }
 
-        public void CallWcf()
+        public void CallWcf(int callId)
         {
-            var result = _service.GetData();
+            var result = _service.GetData(callId);
         }
     }
 }

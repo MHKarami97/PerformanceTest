@@ -1,5 +1,10 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.ServiceModel;
 using System.Threading;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 
 namespace WCF
 {
@@ -7,11 +12,82 @@ namespace WCF
     public class Service1 : IService1
     {
         private const int SleepTimeInMillisecond = 30;
-        
-        public string GetData()
+        private const string LogTableName = "SerilogWcfService";
+
+        private const string LogConnectionString =
+            "Server=.;Database=LogDb;Persist Security Info=True;User ID=sa;Password=1qaz@WSX;MultipleActiveResultSets=True;";
+
+        private static Serilog.Core.Logger _logger;
+
+        public Service1()
         {
-            Thread.Sleep(SleepTimeInMillisecond);
-            
+            ConfigLogger();
+        }
+
+        private static void ConfigLogger()
+        {
+            var columnOpts = new ColumnOptions();
+
+            columnOpts.Store.Remove(StandardColumn.Properties);
+            columnOpts.Store.Remove(StandardColumn.MessageTemplate);
+            columnOpts.Store.Remove(StandardColumn.Level);
+            columnOpts.Store.Remove(StandardColumn.Exception);
+
+            columnOpts.AdditionalColumns = new Collection<SqlColumn>
+            {
+                new SqlColumn
+                {
+                    ColumnName = "ThreadId", PropertyName = "ThreadId", DataType = SqlDbType.Int
+                },
+                new SqlColumn
+                {
+                    ColumnName = "ManagedThreadId", PropertyName = "ManagedThreadId", DataType = SqlDbType.Int
+                },
+                new SqlColumn
+                {
+                    ColumnName = "CallId", PropertyName = "CallId", DataType = SqlDbType.NVarChar
+                }
+            };
+
+            _logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo
+                .MSSqlServer(
+                    connectionString: LogConnectionString,
+                    columnOptions: columnOpts,
+                    sinkOptions: new MSSqlServerSinkOptions
+                    {
+                        TableName = LogTableName,
+                        AutoCreateSqlTable = true
+                    }
+                ).CreateLogger();
+        }
+
+        public string GetData(int callId)
+        {
+            try
+            {
+                var caller = callId.ToString("N");
+                var threadId = System.Diagnostics.Process.GetCurrentProcess().Threads[0].Id;
+                var managedThreadId = Thread.CurrentThread.ManagedThreadId;
+
+                _logger.Information(
+                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}",
+                    threadId, managedThreadId, caller);
+
+                Thread.Sleep(SleepTimeInMillisecond);
+
+                _logger.Information("exit, callId: {CallId}", caller);
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, "ex");
+            }
+            finally
+            {
+                _logger.Dispose();
+            }
+
             return "data";
         }
     }

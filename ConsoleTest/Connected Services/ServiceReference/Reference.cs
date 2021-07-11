@@ -16,10 +16,10 @@ namespace ConsoleTest.ServiceReference {
     public interface IService1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        string GetData();
+        string GetData(int callId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
-        System.Threading.Tasks.Task<string> GetDataAsync();
+        System.Threading.Tasks.Task<string> GetDataAsync(int callId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +49,12 @@ namespace ConsoleTest.ServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public string GetData() {
-            return base.Channel.GetData();
+        public string GetData(int callId) {
+            return base.Channel.GetData(callId);
         }
         
-        public System.Threading.Tasks.Task<string> GetDataAsync() {
-            return base.Channel.GetDataAsync();
+        public System.Threading.Tasks.Task<string> GetDataAsync(int callId) {
+            return base.Channel.GetDataAsync(callId);
         }
     }
 }
