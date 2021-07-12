@@ -86,6 +86,7 @@ namespace WCF
             finally
             {
                 _logger.Dispose();
+                Log.CloseAndFlush();
             }
 
             return "data";

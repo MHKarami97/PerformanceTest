@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Serilog;
 using Serilog.Core;
+using Serilog.Sinks.Elasticsearch;
 using Serilog.Sinks.MSSqlServer;
 
 namespace ConsoleTest
@@ -21,17 +23,17 @@ namespace ConsoleTest
         private static Logger _logger;
         private static Random _random;
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             try
             {
                 _logger = ConfigLogger();
 
-                Console.WriteLine($"start time : {DateTime.Now.ToString("hh:mm:ss.ffffff")}");
+                Console.WriteLine($"start time : {DateTime.Now:hh:mm:ss.ffffff}");
 
-                CallWcf(true, true);
+                await CallWcf(true, true);
 
-                Console.WriteLine($"end time : {DateTime.Now.ToString("hh:mm:ss.ffffff")}");
+                Console.WriteLine($"end time : {DateTime.Now:hh:mm:ss.ffffff}");
             }
             catch (Exception e)
             {
@@ -86,15 +88,22 @@ namespace ConsoleTest
                         BatchPostingLimit = 5,
                         BatchPeriod = TimeSpan.FromMilliseconds(100)
                     }
-                ).CreateLogger();
+                )
+                // .WriteTo
+                // .Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+                // {
+                //     AutoRegisterTemplate = true,
+                //     AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7
+                // })
+                .CreateLogger();
         }
 
-        private static void CallWcf(bool withSingleInstance, bool isConcurrent)
+        private static async Task CallWcf(bool withSingleInstance, bool isConcurrent)
         {
             switch (withSingleInstance)
             {
                 case true when isConcurrent:
-                    CallWcfSingleInstanceConcurrent();
+                    await CallWcfSingleInstanceConcurrent();
                     break;
 
                 case true when !isConcurrent:
@@ -102,7 +111,7 @@ namespace ConsoleTest
                     break;
 
                 case false when isConcurrent:
-                    CallWcfMultiInstanceConcurrent();
+                    await CallWcfMultiInstanceConcurrent();
                     break;
 
                 case false when !isConcurrent:
@@ -130,7 +139,7 @@ namespace ConsoleTest
             }
         }
 
-        private static void CallWcfSingleInstanceConcurrent()
+        private static async Task CallWcfSingleInstanceConcurrent()
         {
             var tasks = new List<Task>();
 
@@ -155,7 +164,7 @@ namespace ConsoleTest
 
             var taskItems = tasks.ToArray();
 
-            Task.WaitAll(taskItems);
+            await Task.WhenAll(tasks.AsParallel());
         }
 
         private static void CallWcfMultiInstance()
@@ -177,7 +186,7 @@ namespace ConsoleTest
             }
         }
 
-        private static void CallWcfMultiInstanceConcurrent()
+        private static async Task CallWcfMultiInstanceConcurrent()
         {
             var tasks = new List<Task>();
 
@@ -200,9 +209,7 @@ namespace ConsoleTest
                 }));
             }
 
-            var taskItems = tasks.ToArray();
-
-            Task.WaitAll(taskItems);
+            await Task.WhenAll(tasks.AsParallel());
         }
     }
 }
