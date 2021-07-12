@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Serilog;
 using Serilog.Core;
-using Serilog.Sinks.Elasticsearch;
 using Serilog.Sinks.MSSqlServer;
 
 namespace ConsoleTest
@@ -65,7 +64,11 @@ namespace ConsoleTest
                     },
                     new SqlColumn
                     {
-                        ColumnName = "CallId", PropertyName = "CallId", DataType = SqlDbType.NVarChar
+                        ColumnName = "CallId", PropertyName = "CallId", DataType = SqlDbType.Int
+                    },
+                    new SqlColumn
+                    {
+                        ColumnName = "CallTime", PropertyName = "CallTime", DataType = SqlDbType.DateTime2
                     }
                 }
             };
@@ -74,6 +77,7 @@ namespace ConsoleTest
             columnOpts.Store.Remove(StandardColumn.MessageTemplate);
             columnOpts.Store.Remove(StandardColumn.Level);
             columnOpts.Store.Remove(StandardColumn.Exception);
+            columnOpts.Store.Remove(StandardColumn.Message);
 
             return new LoggerConfiguration()
                 .MinimumLevel.Information()
@@ -125,17 +129,16 @@ namespace ConsoleTest
             for (var i = 0; i < MaxWcfCall; i++)
             {
                 var callId = _random.Next(0, int.MaxValue);
-                var caller = callId.ToString("N");
                 var threadId = System.Diagnostics.Process.GetCurrentProcess().Threads[0].Id;
                 var managedThreadId = Thread.CurrentThread.ManagedThreadId;
 
                 _logger.Information(
-                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}",
-                    threadId, managedThreadId, caller);
+                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
+                    threadId, managedThreadId, callId, DateTime.Now);
 
                 WcfCall.Instance().CallWcf(callId);
 
-                _logger.Information("exit, callId: {CallId}", caller);
+                _logger.Information("exit, callId: {CallId}, call time: {CallTime}", callId, DateTime.Now);
             }
         }
 
@@ -148,22 +151,19 @@ namespace ConsoleTest
                 tasks.Add(Task.Run(() =>
                 {
                     var callId = _random.Next(0, int.MaxValue);
-                    var caller = callId.ToString("N");
                     var threadId = System.Diagnostics.Process.GetCurrentProcess().Threads[0].Id;
                     var managedThreadId = Thread.CurrentThread.ManagedThreadId;
 
                     _logger.Information(
-                        "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}",
-                        threadId, managedThreadId, caller);
+                        "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
+                        threadId, managedThreadId, callId, DateTime.Now);
 
                     WcfCall.Instance().CallWcf(callId);
 
-                    _logger.Information("exit, callId: {CallId}", caller);
+                    _logger.Information("exit, callId: {CallId}, call time: {CallTime}", callId, DateTime.Now);
                 }));
             }
-
-            var taskItems = tasks.ToArray();
-
+            
             await Task.WhenAll(tasks.AsParallel());
         }
 
@@ -172,17 +172,16 @@ namespace ConsoleTest
             for (var i = 0; i < MaxWcfCall; i++)
             {
                 var callId = _random.Next(0, int.MaxValue);
-                var caller = callId.ToString("N");
                 var threadId = System.Diagnostics.Process.GetCurrentProcess().Threads[0].Id;
                 var managedThreadId = Thread.CurrentThread.ManagedThreadId;
 
                 _logger.Information(
-                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}",
-                    threadId, managedThreadId, caller);
+                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
+                    threadId, managedThreadId, callId, DateTime.Now);
 
                 WcfCall.NewInstance().CallWcf(callId);
 
-                _logger.Information("exit, callId: {CallId}", caller);
+                _logger.Information("exit, callId: {CallId}, call time: {CallTime}", callId, DateTime.Now);
             }
         }
 
@@ -195,17 +194,16 @@ namespace ConsoleTest
                 tasks.Add(Task.Run(() =>
                 {
                     var callId = _random.Next(0, int.MaxValue);
-                    var caller = callId.ToString("N");
                     var threadId = System.Diagnostics.Process.GetCurrentProcess().Threads[0].Id;
                     var managedThreadId = Thread.CurrentThread.ManagedThreadId;
 
                     _logger.Information(
-                        "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}",
-                        threadId, managedThreadId, caller);
+                        "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
+                        threadId, managedThreadId, callId, DateTime.Now);
 
                     WcfCall.NewInstance().CallWcf(callId);
 
-                    _logger.Information("exit, callId: {CallId}", caller);
+                    _logger.Information("exit, callId: {CallId}, call time: {CallTime}", callId, DateTime.Now);
                 }));
             }
 

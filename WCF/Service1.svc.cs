@@ -32,6 +32,7 @@ namespace WCF
             columnOpts.Store.Remove(StandardColumn.MessageTemplate);
             columnOpts.Store.Remove(StandardColumn.Level);
             columnOpts.Store.Remove(StandardColumn.Exception);
+            columnOpts.Store.Remove(StandardColumn.Message);
 
             columnOpts.AdditionalColumns = new Collection<SqlColumn>
             {
@@ -45,7 +46,11 @@ namespace WCF
                 },
                 new SqlColumn
                 {
-                    ColumnName = "CallId", PropertyName = "CallId", DataType = SqlDbType.NVarChar
+                    ColumnName = "CallId", PropertyName = "CallId", DataType = SqlDbType.Int
+                },
+                new SqlColumn
+                {
+                    ColumnName = "CallTime", PropertyName = "CallTime", DataType = SqlDbType.DateTime2
                 }
             };
 
@@ -67,17 +72,16 @@ namespace WCF
         {
             try
             {
-                var caller = callId.ToString("N");
                 var threadId = System.Diagnostics.Process.GetCurrentProcess().Threads[0].Id;
                 var managedThreadId = Thread.CurrentThread.ManagedThreadId;
 
                 _logger.Information(
-                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}",
-                    threadId, managedThreadId, caller);
+                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
+                    threadId, managedThreadId, callId, DateTime.Now);
 
                 Thread.Sleep(SleepTimeInMillisecond);
 
-                _logger.Information("exit, callId: {CallId}", caller);
+                _logger.Information("exit, callId: {CallId}, call time: {CallTime}", callId, DateTime.Now);
             }
             catch (Exception e)
             {
