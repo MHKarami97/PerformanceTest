@@ -9,7 +9,7 @@ using Serilog.Sinks.MSSqlServer;
 namespace WCF
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    public class Service1 : IService1
+    public class Service1 : IService1, IDisposable
     {
         private const int SleepTimeInMillisecond = 30;
         private const string LogTableName = "SerilogWcfService";
@@ -63,7 +63,9 @@ namespace WCF
                     sinkOptions: new MSSqlServerSinkOptions
                     {
                         TableName = LogTableName,
-                        AutoCreateSqlTable = true
+                        AutoCreateSqlTable = true,
+                        BatchPostingLimit = 1,
+                        BatchPeriod = TimeSpan.FromMilliseconds(1)
                     }
                 ).CreateLogger();
         }
@@ -72,8 +74,8 @@ namespace WCF
         {
             try
             {
-                var threadId = System.Diagnostics.Process.GetCurrentProcess().Threads[0].Id;
                 var managedThreadId = Thread.CurrentThread.ManagedThreadId;
+                var threadId = System.Diagnostics.Process.GetCurrentProcess().Threads[0].Id;
 
                 _logger.Information(
                     "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
@@ -87,13 +89,21 @@ namespace WCF
             {
                 _logger.Error(e, "ex");
             }
-            finally
-            {
-                _logger.Dispose();
-                Log.CloseAndFlush();
-            }
 
             return "data";
+        }
+
+        public string GetDataWithoutLog(int callId)
+        {
+            Thread.Sleep(SleepTimeInMillisecond);
+
+            return "data";
+        }
+
+        public void Dispose()
+        {
+            _logger.Dispose();
+            Log.CloseAndFlush();
         }
     }
 }

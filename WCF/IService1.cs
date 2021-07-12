@@ -7,5 +7,8 @@ namespace WCF
     {
         [OperationContract]
         string GetData(int callId);
+        
+        [OperationContract]
+        string GetDataWithoutLog(int callId);
     }
 }

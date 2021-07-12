@@ -12,16 +12,35 @@
   <wsdl:message name="IService1_GetData_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDataResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetDataWithoutLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataWithoutLog" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetDataWithoutLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataWithoutLogResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="GetData">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetData" message="tns:IService1_GetData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataResponse" message="tns:IService1_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataWithoutLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetDataWithoutLog" message="tns:IService1_GetDataWithoutLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetDataWithoutLogResponse" message="tns:IService1_GetDataWithoutLog_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetData">
       <soap:operation soapAction="http://tempuri.org/IService1/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataWithoutLog">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetDataWithoutLog" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

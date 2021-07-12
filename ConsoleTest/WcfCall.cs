@@ -38,5 +38,10 @@ namespace ConsoleTest
         {
             var result = _service.GetData(callId);
         }
+        
+        public void CallWcfWithoutServiceLog(int callId)
+        {
+            var result = _service.GetDataWithoutLog(callId);
+        }
     }
 }

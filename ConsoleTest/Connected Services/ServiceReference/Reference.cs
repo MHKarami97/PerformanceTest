@@ -20,6 +20,12 @@ namespace ConsoleTest.ServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
         System.Threading.Tasks.Task<string> GetDataAsync(int callId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataWithoutLog", ReplyAction="http://tempuri.org/IService1/GetDataWithoutLogResponse")]
+        string GetDataWithoutLog(int callId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataWithoutLog", ReplyAction="http://tempuri.org/IService1/GetDataWithoutLogResponse")]
+        System.Threading.Tasks.Task<string> GetDataWithoutLogAsync(int callId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace ConsoleTest.ServiceReference {
         
         public System.Threading.Tasks.Task<string> GetDataAsync(int callId) {
             return base.Channel.GetDataAsync(callId);
+        }
+        
+        public string GetDataWithoutLog(int callId) {
+            return base.Channel.GetDataWithoutLog(callId);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetDataWithoutLogAsync(int callId) {
+            return base.Channel.GetDataWithoutLogAsync(callId);
         }
     }
 }
