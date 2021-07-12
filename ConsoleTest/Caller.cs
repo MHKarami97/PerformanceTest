@@ -48,7 +48,7 @@ namespace ConsoleTest
             return new Caller(serviceType);
         }
 
-        public void CallWcf(int callId)
+        public void Call(int callId)
         {
             switch (_serviceType)
             {
@@ -61,7 +61,7 @@ namespace ConsoleTest
             }
         }
 
-        public void CallWcfWithoutServiceLog(int callId)
+        public void CallWithOutServiceLog(int callId)
         {
             switch (_serviceType)
             {

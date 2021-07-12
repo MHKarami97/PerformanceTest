@@ -232,7 +232,7 @@ namespace ConsoleTest
                     "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                     loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                Caller.Instance().CallWcf(loggableData.CallId);
+                Caller.Instance().Call(loggableData.CallId);
 
                 _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
             }
@@ -252,7 +252,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().CallWcf(loggableData.CallId);
+                    Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -276,7 +276,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().CallWcf(loggableData.CallId);
+                    Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -297,7 +297,7 @@ namespace ConsoleTest
                     loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
 
-                Caller.NewInstance().CallWcf(loggableData.CallId);
+                Caller.NewInstance().Call(loggableData.CallId);
 
                 _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
             }
@@ -317,7 +317,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.NewInstance().CallWcf(loggableData.CallId);
+                    Caller.NewInstance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -339,7 +339,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().CallWcf(loggableData.CallId);
+                    Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -361,7 +361,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().CallWcf(loggableData.CallId);
+                    Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -385,7 +385,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().CallWcf(loggableData.CallId);
+                    Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -405,7 +405,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().CallWcf(loggableData.CallId);
+                    Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -423,7 +423,7 @@ namespace ConsoleTest
                     "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                     loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                Caller.Instance().CallWcf(loggableData.CallId);
+                Caller.Instance().Call(loggableData.CallId);
 
                 _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
             });
@@ -442,7 +442,7 @@ namespace ConsoleTest
                     _logQueue.Enqueue(
                         $"entry ,thread number: {loggableData.ThreadId}, managed thread id: {loggableData.ManagementThreadId}, call id: {loggableData.CallId}, call time: {loggableData.Time:hh:mm:ss.ffffff}");
 
-                    Caller.Instance().CallWcfWithoutServiceLog(loggableData.CallId);
+                    Caller.Instance().CallWithOutServiceLog(loggableData.CallId);
 
                     _logQueue.Enqueue(
                         $"exit, callId: {loggableData.CallId}, call time: {DateTime.Now:hh:mm:ss.ffffff}");
