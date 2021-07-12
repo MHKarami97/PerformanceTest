@@ -195,7 +195,8 @@
     <Compile Include="LoggableData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WcfCall.cs" />
+    <Compile Include="Caller.cs" />
+    <Compile Include="ServiceType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

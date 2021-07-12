@@ -8,7 +8,7 @@ using Serilog.Sinks.MSSqlServer;
 
 namespace WCF
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class Service1 : IService1, IDisposable
     {
         private const int SleepTimeInMillisecond = 30;
