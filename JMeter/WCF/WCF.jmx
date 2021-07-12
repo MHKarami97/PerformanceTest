@@ -310,7 +310,7 @@ Here&apos;s the solution - Throughput Shaping Timer! Now you can just set schedu
         </HeaderManager>
         <hashTree/>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Thread Group (50_concurrent_User)" enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Thread Group (50_concurrent_User)" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="-1900540136">
             <stringProp name="1691">50</stringProp>
@@ -424,7 +424,7 @@ Here&apos;s the solution - Throughput Shaping Timer! Now you can just set schedu
         </HeaderManager>
         <hashTree/>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Thread Group (1000_concurrent_User)" enabled="false">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Thread Group (1000_concurrent_User)" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="-1052540899">
             <stringProp name="1507423">1000</stringProp>
@@ -538,7 +538,7 @@ Here&apos;s the solution - Throughput Shaping Timer! Now you can just set schedu
         </HeaderManager>
         <hashTree/>
       </hashTree>
-      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Thread Group (custom_concurrent_User)" enabled="true">
+      <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="Thread Group (custom_concurrent_User)" enabled="false">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="353372281">
             <stringProp name="1567005">3000</stringProp>
@@ -556,6 +556,7 @@ Here&apos;s the solution - Throughput Shaping Timer! Now you can just set schedu
       </kg.apc.jmeter.threads.UltimateThreadGroup>
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
@@ -565,7 +566,6 @@ Here&apos;s the solution - Throughput Shaping Timer! Now you can just set schedu
               </elementProp>
             </collectionProp>
           </elementProp>
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <stringProp name="HTTPSampler.domain">${hostName}</stringProp>
           <stringProp name="HTTPSampler.port">${portNumber}</stringProp>
           <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -1027,7 +1027,7 @@ Here&apos;s the solution - Throughput Shaping Timer! Now you can just set schedu
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">C:\jmeter\Test\resultWCF.csv</stringProp>
+        <stringProp name="filename"></stringProp>
         <boolProp name="useGroupName">true</boolProp>
         <stringProp name="TestPlan.comments">The summary report creates a table row for each differently named request in your test. This is similar to the Aggregate Report , except that it uses less memory</stringProp>
       </ResultCollector>
