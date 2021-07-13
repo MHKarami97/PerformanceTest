@@ -15,7 +15,7 @@ namespace ConsoleTest
 {
     class Program
     {
-        private const int MaxWcfCall = 5;
+        private const int MaxWcfCall = 100;
         private const string LogTableName = "SerilogWcfConsoleTest";
 
         private const string LogConnectionString =
