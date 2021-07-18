@@ -135,7 +135,7 @@ namespace ConsoleTest
                     break;
 
                 case CallType.SingleInstance:
-                    CallWcfSingleInstance();
+                    await CallWcfSingleInstance();
                     break;
 
                 case CallType.MultiInstanceConcurrent:
@@ -143,7 +143,7 @@ namespace ConsoleTest
                     break;
 
                 case CallType.MultiInstance:
-                    CallWcfMultiInstance();
+                    await CallWcfMultiInstance();
                     break;
 
                 case CallType.MultiThread:
@@ -222,7 +222,7 @@ namespace ConsoleTest
 
         #region Services
 
-        private static void CallWcfSingleInstance()
+        private static async Task CallWcfSingleInstance()
         {
             for (var i = 0; i < MaxWcfCall; i++)
             {
@@ -232,7 +232,7 @@ namespace ConsoleTest
                     "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                     loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                Caller.Instance().Call(loggableData.CallId);
+                await Caller.Instance().Call(loggableData.CallId);
 
                 _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
             }
@@ -244,7 +244,7 @@ namespace ConsoleTest
 
             for (var i = 0; i < MaxWcfCall; i++)
             {
-                tasks.Add(Task.Run(() =>
+                tasks.Add(Task.Run(async () =>
                 {
                     var loggableData = GetLoggableData();
 
@@ -252,7 +252,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().Call(loggableData.CallId);
+                    await Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -268,7 +268,7 @@ namespace ConsoleTest
 
             for (var i = 0; i < MaxWcfCall; i++)
             {
-                tasks.Add(Task.Run(() =>
+                tasks.Add(Task.Run(async () =>
                 {
                     var loggableData = GetLoggableData();
 
@@ -276,7 +276,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().Call(loggableData.CallId);
+                    await Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -286,7 +286,7 @@ namespace ConsoleTest
             await Task.WhenAll(tasks);
         }
 
-        private static void CallWcfMultiInstance()
+        private static async Task CallWcfMultiInstance()
         {
             for (var i = 0; i < MaxWcfCall; i++)
             {
@@ -297,7 +297,7 @@ namespace ConsoleTest
                     loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
 
-                Caller.NewInstance().Call(loggableData.CallId);
+                await Caller.NewInstance().Call(loggableData.CallId);
 
                 _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
             }
@@ -309,7 +309,7 @@ namespace ConsoleTest
 
             for (var i = 0; i < MaxWcfCall; i++)
             {
-                tasks.Add(Task.Run(() =>
+                tasks.Add(Task.Run(async () =>
                 {
                     var loggableData = GetLoggableData();
 
@@ -317,7 +317,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.NewInstance().Call(loggableData.CallId);
+                    await Caller.NewInstance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -331,7 +331,7 @@ namespace ConsoleTest
         {
             for (var i = 0; i < MaxWcfCall; i++)
             {
-                Task.Run(() =>
+                Task.Run(async () =>
                 {
                     var loggableData = GetLoggableData();
 
@@ -339,7 +339,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().Call(loggableData.CallId);
+                    await Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -353,7 +353,7 @@ namespace ConsoleTest
 
             for (var i = 0; i < MaxWcfCall; i++)
             {
-                tasks.Add(Task.Factory.StartNew(() =>
+                tasks.Add(Task.Factory.StartNew(async () =>
                 {
                     var loggableData = GetLoggableData();
 
@@ -361,7 +361,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().Call(loggableData.CallId);
+                    await Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -377,7 +377,7 @@ namespace ConsoleTest
         {
             for (var i = 0; i < MaxWcfCall; i++)
             {
-                await Task.Run(() =>
+                await Task.Run(async () =>
                 {
                     var loggableData = GetLoggableData();
 
@@ -385,7 +385,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().Call(loggableData.CallId);
+                    await Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -397,7 +397,7 @@ namespace ConsoleTest
         {
             for (var i = 0; i < MaxWcfCall; i++)
             {
-                await Task.Run(() =>
+                await Task.Run(async () =>
                 {
                     var loggableData = GetLoggableData();
 
@@ -405,7 +405,7 @@ namespace ConsoleTest
                         "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                         loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                    Caller.Instance().Call(loggableData.CallId);
+                    await Caller.Instance().Call(loggableData.CallId);
 
                     _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId,
                         DateTime.Now);
@@ -415,7 +415,7 @@ namespace ConsoleTest
 
         private static void CallParallelLoop()
         {
-            Parallel.For(0, MaxWcfCall, i =>
+            Parallel.For(0, MaxWcfCall, async i =>
             {
                 var loggableData = GetLoggableData();
 
@@ -423,7 +423,7 @@ namespace ConsoleTest
                     "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
                     loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
 
-                Caller.Instance().Call(loggableData.CallId);
+                await Caller.Instance().Call(loggableData.CallId);
 
                 _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
             });
@@ -435,14 +435,14 @@ namespace ConsoleTest
 
             for (var i = 0; i < MaxWcfCall; i++)
             {
-                tasks.Add(Task.Run(() =>
+                tasks.Add(Task.Run(async () =>
                 {
                     var loggableData = GetLoggableData();
 
                     _logQueue.Enqueue(
                         $"entry ,thread number: {loggableData.ThreadId}, managed thread id: {loggableData.ManagementThreadId}, call id: {loggableData.CallId}, call time: {loggableData.Time:hh:mm:ss.ffffff}");
 
-                    Caller.Instance().CallWithOutServiceLog(loggableData.CallId);
+                    await Caller.Instance().CallWithOutServiceLog(loggableData.CallId);
 
                     _logQueue.Enqueue(
                         $"exit, callId: {loggableData.CallId}, call time: {DateTime.Now:hh:mm:ss.ffffff}");

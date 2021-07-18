@@ -3,6 +3,7 @@
     public enum ServiceType
     {
         Wcf = 1,
-        Api = 2
+        ApiHttpClient = 2,
+        ApiRestSharp = 3
     }
 }
