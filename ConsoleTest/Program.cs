@@ -290,13 +290,11 @@ namespace ConsoleTest
             {
                 var loggableData = GetLoggableData();
 
-                _logger.Information(
-                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
-                    loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
+                LogFirst(loggableData);
 
                 await Caller.Instance(Type).Call(loggableData.CallId);
 
-                _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
+                LogSecond(loggableData);
             }
         }
 
@@ -348,14 +346,11 @@ namespace ConsoleTest
             {
                 var loggableData = GetLoggableData();
 
-                _logger.Information(
-                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
-                    loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
-
+                LogFirst(loggableData);
 
                 await Caller.NewInstance().Call(loggableData.CallId);
 
-                _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
+                LogSecond(loggableData);
             }
         }
 
@@ -460,13 +455,11 @@ namespace ConsoleTest
             {
                 var loggableData = GetLoggableData();
 
-                _logger.Information(
-                    "entry ,thread number: {ThreadId}, managed thread id: {ManagedThreadId}, call id: {CallId}, call time: {CallTime}",
-                    loggableData.ThreadId, loggableData.ManagementThreadId, loggableData.CallId, loggableData.Time);
+                LogFirst(loggableData);
 
                 await Caller.Instance(Type).Call(loggableData.CallId);
 
-                _logger.Information("exit, callId: {CallId}, call time: {CallTime}", loggableData.CallId, DateTime.Now);
+                LogSecond(loggableData);
             });
         }
 
