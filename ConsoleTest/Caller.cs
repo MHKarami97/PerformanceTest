@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using ConsoleTest.ServiceReference;
+using Flurl.Http;
 using RestSharp;
 
 namespace ConsoleTest
@@ -74,6 +75,10 @@ namespace ConsoleTest
                 case ServiceType.ApiRestSharp:
                     await _restClient.GetAsync<string>(new RestRequest());
                     break;
+
+                case ServiceType.ApiFlurl:
+                    await _apiUrl.GetAsync();
+                    break;
             }
         }
 
@@ -91,6 +96,10 @@ namespace ConsoleTest
 
                 case ServiceType.ApiRestSharp:
                     await _restClient.GetAsync<string>(new RestRequest());
+                    break;
+
+                case ServiceType.ApiFlurl:
+                    await _apiUrl.GetAsync();
                     break;
             }
         }
